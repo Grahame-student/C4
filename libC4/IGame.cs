@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using C4.LibC4.Rules;
 
 namespace C4.LibC4
 {

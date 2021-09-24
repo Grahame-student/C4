@@ -11,8 +11,8 @@ namespace C4.Console.Platform
     internal static class WinMain
     {
         private const Int32 MF_BYCOMMAND = 0x00000000;
-        private const Int32 SC_MINIMIZE = 0xF020;
-        private const Int32 SC_MAXIMIZE = 0xF030;
+        private const Int32 SC_MINIMISE = 0xF020;
+        private const Int32 SC_MAXIMISE = 0xF030;
         private const Int32 SC_SIZE = 0xF000;
 
         [DllImport("user32.dll")]
@@ -35,8 +35,8 @@ namespace C4.Console.Platform
             System.Console.SetBufferSize(width, height);
             System.Console.CursorVisible = false;
 
-            _ = DeleteMenu(GetSystemMenu(GetConsoleWindow(), false), SC_MINIMIZE, MF_BYCOMMAND);
-            _ = DeleteMenu(GetSystemMenu(GetConsoleWindow(), false), SC_MAXIMIZE, MF_BYCOMMAND);
+            _ = DeleteMenu(GetSystemMenu(GetConsoleWindow(), false), SC_MINIMISE, MF_BYCOMMAND);
+            _ = DeleteMenu(GetSystemMenu(GetConsoleWindow(), false), SC_MAXIMISE, MF_BYCOMMAND);
             _ = DeleteMenu(GetSystemMenu(GetConsoleWindow(), false), SC_SIZE, MF_BYCOMMAND);
         }
     }

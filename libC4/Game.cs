@@ -18,7 +18,8 @@ namespace C4.LibC4
         private readonly IList<IGameRule> _rules = new List<IGameRule>
         {
             new RuleVerticalLine(),
-            new RuleHorizontalLine()
+            new RuleHorizontalLine(),
+            new RuleDiagonalLine()
         };
 
         public IBoard Board { get; private set; }

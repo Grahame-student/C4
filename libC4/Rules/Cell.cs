@@ -2,7 +2,7 @@
 
 namespace C4.LibC4.Rules
 {
-    public class Cell : IEquatable<Cell>
+    public class Cell : IEquatable<Cell>, IComparable<Cell>
     {
         public Int32 Column { get; }
         public Int32 Row { get; }
@@ -11,6 +11,18 @@ namespace C4.LibC4.Rules
         {
             Column = column;
             Row = row;
+        }
+
+        public Int32 CompareTo(Cell other)
+        {
+            // sort by column then row, null do at the end
+            if (other == null) return 1;
+            if (Column > other.Column) return 1;
+            if (Column < other.Column) return -1;
+            if (Column == other.Column && Row > other.Row) return 1;
+            if (Column == other.Column && Row < other.Row) return -1;
+
+            return 0;
         }
 
         public override Boolean Equals(Object other)
@@ -24,12 +36,17 @@ namespace C4.LibC4.Rules
             if (ReferenceEquals(this, other)) return true;
             if (GetType() != other.GetType()) return false;
 
-            return (Column == other.Column) && (Row == other.Row);
+            return Column == other.Column && Row == other.Row;
         }
 
         public override Int32 GetHashCode()
         {
             return HashCode.Combine(Column, Row);
+        }
+
+        public override String ToString()
+        {
+            return $"{Column}, {Row}";
         }
     }
 }

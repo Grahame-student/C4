@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using C4.LibC4;
 using Moq;
 using NUnit.Framework;

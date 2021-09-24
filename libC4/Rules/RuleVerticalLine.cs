@@ -39,7 +39,7 @@ namespace C4.LibC4.Rules
             TryStoreLine(prev, cells);
         }
 
-        private void TryStoreLine(Token prev, List<Cell> cells)
+        private void TryStoreLine(Token prev, IList<Cell> cells)
         {
             if (cells.Count < 4) return;
             if (prev != Token.None)
