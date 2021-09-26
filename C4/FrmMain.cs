@@ -9,21 +9,19 @@ namespace C4.Gui
     {
         private const Int32 CELL_WIDTH = 100;
 
-        private readonly Renderer _renderer = new Renderer();
+        private readonly Renderer _renderer = new();
+        private readonly IGame _game;
         private Int32 _previousCell = -1;
 
         public FrmMain()
         {
             InitializeComponent();
 
+            _game = new GameObjectFactory().GetGame();
+            _game.New();
         }
 
-        private void picBoard_Paint(object sender, PaintEventArgs e)
-        {
-            _renderer.DrawBoard(e.Graphics);
-        }
-
-        private void picSelectMove_MouseMove(object sender, MouseEventArgs e)
+        private void picSelectMove_MouseMove(Object sender, MouseEventArgs e)
         {
             Int32 column = GetColumn(e.X);
             if (column == _previousCell) return;
@@ -37,9 +35,22 @@ namespace C4.Gui
             return posX / CELL_WIDTH;
         }
 
-        private void picSelectMove_Paint(object sender, PaintEventArgs e)
+        private void picSelectMove_Paint(Object sender, PaintEventArgs e)
         {
-            _renderer.PrepareMove(e, _previousCell, Token.Player1);
+            _renderer.PrepareMove(e.Graphics, _previousCell, _game.Turn);
+        }
+
+        private void picBoard_Paint(Object sender, PaintEventArgs e)
+        {
+            _renderer.UpdateScreen(e.Graphics, _game);
+        }
+
+        private void picSelectMove_MouseUp(Object sender, MouseEventArgs e)
+        {
+            if (!_game.IsMoveValid(_previousCell)) return;
+            _game.PlaceToken(_previousCell);
+            picBoard.Invalidate();
+            picSelectMove.Invalidate();
         }
     }
 }

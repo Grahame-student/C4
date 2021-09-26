@@ -46,6 +46,7 @@ namespace C4.Gui
             this.picBoard.TabStop = false;
             this.picBoard.Paint += new System.Windows.Forms.PaintEventHandler(this.picBoard_Paint);
             this.picBoard.MouseMove += new System.Windows.Forms.MouseEventHandler(this.picSelectMove_MouseMove);
+            this.picBoard.MouseUp += new System.Windows.Forms.MouseEventHandler(this.picSelectMove_MouseUp);
             // 
             // tableLayoutPanel1
             // 
@@ -74,6 +75,7 @@ namespace C4.Gui
             this.picSelectMove.TabStop = false;
             this.picSelectMove.Paint += new System.Windows.Forms.PaintEventHandler(this.picSelectMove_Paint);
             this.picSelectMove.MouseMove += new System.Windows.Forms.MouseEventHandler(this.picSelectMove_MouseMove);
+            this.picSelectMove.MouseUp += new System.Windows.Forms.MouseEventHandler(this.picSelectMove_MouseUp);
             // 
             // FrmMain
             // 

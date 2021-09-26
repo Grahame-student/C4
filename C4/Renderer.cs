@@ -1,26 +1,20 @@
 ﻿using System;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Reflection;
-using System.Windows.Forms;
 using C4.LibC4;
 
 namespace C4.Gui
 {
     internal class Renderer
     {
-        internal void DrawBoard(Graphics g)
-        {
-            Image image = GetImage("board.png");
-
-            g.DrawImage(image, new Rectangle(0, 0, image.Width, image.Height));
-        }
-
         private Image GetImage(String imageName)
         {
             Assembly assembly = GetType().GetTypeInfo().Assembly;
             Stream resource = assembly.GetManifestResourceStream($"C4.Gui.{imageName}");
+            if (resource == null) throw new InvalidOperationException();
             using Image tmpImage = new Bitmap(resource);
             Image image = new Bitmap(tmpImage.Width, tmpImage.Height, PixelFormat.Format32bppArgb);
             using Graphics g = Graphics.FromImage(image);
@@ -29,11 +23,11 @@ namespace C4.Gui
             return image;
         }
 
-        internal void PrepareMove(PaintEventArgs e, Int32 column, Token player)
+        internal void PrepareMove(Graphics g, Int32 column, Token player)
         {
             Image token = GetToken("token.png", new Colours(player));
-            e.Graphics.Clear(Color.White);
-            e.Graphics.DrawImage(token, new Rectangle(column * 100, 0, token.Width, token.Height));
+            g.Clear(Color.White);
+            g.DrawImage(token, new Rectangle(column * 100, 0, token.Width, token.Height));
         }
 
         private Image GetToken(String imageName, Colours colours)
@@ -61,6 +55,41 @@ namespace C4.Gui
             g.DrawImage(tmpImage, new Rectangle(0, 0, image.Width, image.Height), 0, 0, image.Width, image.Height, GraphicsUnit.Pixel, attr);
 
             return image;
+        }
+
+        public Image DrawTokens(IGame game)
+        {
+            Image background = new Bitmap(700, 600);
+            using Graphics g = Graphics.FromImage(background);
+            g.Clear(Color.White);
+
+            for (var col = 0; col < game.Board.ColumnCount; col++)
+            {
+                for (var row = 0; row < game.Board.Columns[0].RowCount; row++)
+                {
+                    if (game.Board.Columns[col].Rows[row] == Token.None) continue;
+                    PlaceToken(g, col, row, game.Board.Columns[col].Rows[row]);
+                }
+            }
+
+            return background;
+        }
+
+        private void PlaceToken(Graphics g, Int32 col, Int32 row, Token player)
+        {
+            Int32 boardRow = 5 - row;
+            Image token = GetToken("token.png", new Colours(player));
+            g.DrawImage(token, new Rectangle(col * 100, boardRow * 100, token.Width, token.Height));
+        }
+
+        public void UpdateScreen(Graphics g, IGame game)
+        {
+            Image background = DrawTokens(game);
+            Image board = GetImage("board.png");
+
+            g.CompositingMode = CompositingMode.SourceOver;
+            g.DrawImage(background, 0, 0, background.Width, background.Height);
+            g.DrawImage(board, 0, 0, board.Width, board.Height);
         }
     }
 }
