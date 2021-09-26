@@ -29,19 +29,23 @@ namespace C4.Gui
         /// </summary>
         private void InitializeComponent()
         {
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.picBoard = new System.Windows.Forms.PictureBox();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.picSelectMove = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.picBoard)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picSelectMove)).BeginInit();
             this.SuspendLayout();
             // 
-            // pictureBox1
+            // picBoard
             // 
-            this.pictureBox1.Location = new System.Drawing.Point(117, 3);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(800, 600);
-            this.pictureBox1.TabIndex = 0;
-            this.pictureBox1.TabStop = false;
+            this.picBoard.Location = new System.Drawing.Point(167, 109);
+            this.picBoard.Name = "picBoard";
+            this.picBoard.Size = new System.Drawing.Size(700, 600);
+            this.picBoard.TabIndex = 0;
+            this.picBoard.TabStop = false;
+            this.picBoard.Paint += new System.Windows.Forms.PaintEventHandler(this.picBoard_Paint);
+            this.picBoard.MouseMove += new System.Windows.Forms.MouseEventHandler(this.picSelectMove_MouseMove);
             // 
             // tableLayoutPanel1
             // 
@@ -50,14 +54,26 @@ namespace C4.Gui
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Controls.Add(this.pictureBox1, 1, 0);
+            this.tableLayoutPanel1.Controls.Add(this.picBoard, 1, 1);
+            this.tableLayoutPanel1.Controls.Add(this.picSelectMove, 1, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 119);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 13);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 1;
+            this.tableLayoutPanel1.RowCount = 2;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(1034, 606);
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(1034, 712);
             this.tableLayoutPanel1.TabIndex = 1;
+            // 
+            // picSelectMove
+            // 
+            this.picSelectMove.Location = new System.Drawing.Point(167, 3);
+            this.picSelectMove.Name = "picSelectMove";
+            this.picSelectMove.Size = new System.Drawing.Size(700, 100);
+            this.picSelectMove.TabIndex = 1;
+            this.picSelectMove.TabStop = false;
+            this.picSelectMove.Paint += new System.Windows.Forms.PaintEventHandler(this.picSelectMove_Paint);
+            this.picSelectMove.MouseMove += new System.Windows.Forms.MouseEventHandler(this.picSelectMove_MouseMove);
             // 
             // FrmMain
             // 
@@ -67,8 +83,9 @@ namespace C4.Gui
             this.Controls.Add(this.tableLayoutPanel1);
             this.Name = "FrmMain";
             this.Text = "FrmMain";
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picBoard)).EndInit();
             this.tableLayoutPanel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.picSelectMove)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -76,8 +93,9 @@ namespace C4.Gui
 
         #endregion
 
-        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.PictureBox picBoard;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private System.Windows.Forms.PictureBox picSelectMove;
     }
 }
 

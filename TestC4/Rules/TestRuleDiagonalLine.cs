@@ -292,9 +292,6 @@ namespace TestLibC4.Rules
             Assert.That(secondRun, Is.EqualTo(firstRun));
         }
 
-
-
-
         /// <summary>
         /// X...
         /// .X..
